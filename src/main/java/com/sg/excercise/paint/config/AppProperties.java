@@ -100,6 +100,15 @@ public class AppProperties {
         private char defaultFillChar;
         private char rectangleChar;
         private char lineChar;
+        private int maxCanvasSize;
+
+        public int getMaxCanvasSize() {
+            return maxCanvasSize;
+        }
+
+        public void setMaxCanvasSize(int maxCanvasSize) {
+            this.maxCanvasSize = maxCanvasSize;
+        }
 
         public char getDefaultFillChar() {
             return defaultFillChar;

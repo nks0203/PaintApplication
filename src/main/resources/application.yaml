@@ -3,8 +3,9 @@ app:
     boundry-horizontal-char: '-'
     boundry-vertical-char: '|'
     default-fill-char: ' '
-    rectangle-char: 'r'
-    line-char: 'l'
+    rectangle-char: 'x'
+    line-char: 'x'
+    maxCanvasSize: 1000
   messages:
     exception:
       invalid-command-no-canvas: Please create a canvas first. Run -> C <length> <height>. Try again.

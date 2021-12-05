@@ -35,7 +35,7 @@ public class CreateCanvasCommandProcessor extends AbstractCommandProcessor {
         if (commandSplit.length == 3) {
             int width = Integer.parseInt(commandSplit[1]);
             int height = Integer.parseInt(commandSplit[2]);
-            if (width > 0 && height > 0) {
+            if ((width > 0 && width <= appProperties.getCanvas().getMaxCanvasSize()) && (height > 0 && height <= appProperties.getCanvas().getMaxCanvasSize())) {
                 return new CanvasEntity(width, height);
             }
         }

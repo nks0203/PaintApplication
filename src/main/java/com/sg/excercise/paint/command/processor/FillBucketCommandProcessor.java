@@ -35,31 +35,32 @@ public class FillBucketCommandProcessor extends AbstractCommandProcessor {
             throw new InvalidCommandException(MessageFormat.format(appProperties.getMessages().getException().getInvalidCommandPointOutsideCanvas(), canvasEntity.getWidth(), canvasEntity.getHeight()));
         }
         char originalChar = canvasEntity.getCanvasDataArray()[y1 - 1][x1 - 1];
-        fillBucketWithChar(x1 - 1, y1 - 1, originalChar, fillBucketEntity.getFillByChar(), canvasEntity);
+        Stack<Point> recursiveStack = new Stack<>();
+        recursiveStack.add(new Point(x1 - 1, y1 - 1));
+        fillBucketWithChar(recursiveStack, originalChar, fillBucketEntity.getFillByChar(), canvasEntity);
 
     }
 
-
-    private void fillBucketWithChar(int x1, int y1, char originalChar, char fillByChar, CanvasEntity canvasEntity) {
-        Stack<Point> recursiveStack = new Stack<>();
+    private void fillBucketWithChar(Stack<Point> recursiveStack, char originalChar, char fillByChar, CanvasEntity canvasEntity) {
         char[][] canvasDataArray = canvasEntity.getCanvasDataArray();
-        recursiveStack.add(new Point(x1, y1));
         while (!recursiveStack.isEmpty()) {
             Point point = recursiveStack.pop();
-            if (canvasDataArray[point.getX1()][point.getY1()] == originalChar) {
-                canvasDataArray[point.getX1()][point.getY1()] = fillByChar;
+            int x = point.getX1();
+            int y = point.getY1();
+            if (canvasDataArray[x][y] == originalChar) {
+                canvasDataArray[x][y] = fillByChar;
             }
-            if (point.getX1() - 1 >= 0 && canvasDataArray[point.getX1() - 1][point.getY1()] == originalChar) {
-                recursiveStack.add(new Point(point.getX1() - 1, point.getY1()));
+            if (x + 1 < canvasEntity.getHeight() && canvasDataArray[x + 1][y] == originalChar) {
+                recursiveStack.add(new Point(x + 1, y));
             }
-            if (point.getX1() + 1 < canvasEntity.getHeight() && canvasDataArray[point.getX1() + 1][point.getY1()] == originalChar) {
-                recursiveStack.add(new Point(point.getX1() + 1, point.getY1()));
+            if (x - 1 >= 0 && canvasDataArray[x - 1][y] == originalChar) {
+                recursiveStack.add(new Point(x - 1, y));
             }
-            if (point.getY1() - 1 >= 0 && canvasDataArray[point.getX1()][point.getY1() - 1] == originalChar) {
-                recursiveStack.add(new Point(point.getX1(), point.getY1() - 1));
+            if (y + 1 < canvasEntity.getWidth() && canvasDataArray[x][y + 1] == originalChar) {
+                recursiveStack.add(new Point(x, y + 1));
             }
-            if (point.getY1() + 1 < canvasEntity.getWidth() && canvasDataArray[point.getX1()][point.getY1() + 1] == originalChar) {
-                recursiveStack.add(new Point(point.getX1(), point.getY1() + 1));
+            if (y - 1 >= 0 && canvasDataArray[x][y - 1] == originalChar) {
+                recursiveStack.add(new Point(x, y - 1));
             }
         }
     }
