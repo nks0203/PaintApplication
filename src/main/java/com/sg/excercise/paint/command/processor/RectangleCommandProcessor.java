@@ -1,16 +1,25 @@
 package com.sg.excercise.paint.command.processor;
 
+import com.sg.excercise.paint.config.AppProperties;
 import com.sg.excercise.paint.exception.InvalidCommandException;
 import com.sg.excercise.paint.model.BaseEntity;
 import com.sg.excercise.paint.model.CanvasEntity;
 import com.sg.excercise.paint.model.RectangleEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RectangleCommandProcessor extends AbstractCommandProcessor {
 
+    private AppProperties appProperties;
+
+    @Autowired
+    public RectangleCommandProcessor(AppProperties appProperties) {
+        this.appProperties = appProperties;
+    }
+
     @Override
-    public void processEntity(BaseEntity baseEntity) {
+    public void processEntity(BaseEntity baseEntity) throws InvalidCommandException {
         RectangleEntity rectangleEntity = (RectangleEntity) baseEntity;
         int x1 = rectangleEntity.getX1();
         int y1 = rectangleEntity.getY1();
@@ -18,7 +27,7 @@ public class RectangleCommandProcessor extends AbstractCommandProcessor {
         int y2 = rectangleEntity.getY2();
         CanvasEntity canvasEntity = canvas.getCanvasEntity();
         if (canvasEntity == null) {
-            throw new InvalidCommandException("Invalid command. Please create a canvas first. Run -> C <length> <height>");
+            throw new InvalidCommandException(appProperties.getMessages().getException().getInvalidCommandNoCanvas());
         }
         drawLine(x1, y1, x2, y1, canvasEntity);
         drawLine(x1, y1, x1, y2, canvasEntity);
@@ -30,7 +39,7 @@ public class RectangleCommandProcessor extends AbstractCommandProcessor {
     private void drawLine(int x1, int y1, int x2, int y2, CanvasEntity canvasEntity) {
         for (int row = y1 - 1; row <= y2 - 1 && row < canvasEntity.getWidth(); row++) {
             for (int col = x1 - 1; col <= x2 - 1 && col < canvasEntity.getHeight(); col++) {
-                canvas.getCanvasEntity().getCanvasDataArray()[row][col] = 'x';
+                canvas.getCanvasEntity().getCanvasDataArray()[row][col] = appProperties.getCanvas().getRectangleChar();
             }
         }
     }

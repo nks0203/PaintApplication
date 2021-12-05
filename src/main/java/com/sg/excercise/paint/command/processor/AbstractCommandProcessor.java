@@ -1,6 +1,7 @@
 package com.sg.excercise.paint.command.processor;
 
 import com.sg.excercise.paint.command.processor.validator.BaseCommandValidator;
+import com.sg.excercise.paint.exception.InvalidCommandException;
 import com.sg.excercise.paint.model.BaseEntity;
 import com.sg.excercise.paint.model.Canvas;
 import com.sg.excercise.paint.model.CanvasEntity;
@@ -10,7 +11,7 @@ public abstract class AbstractCommandProcessor implements BaseCommandProcessor, 
 
     protected Canvas canvas;
 
-    public void processCommand(String command) {
+    public void processCommand(String command) throws InvalidCommandException {
         BaseEntity baseEntity = validateAndParse(command);
         processEntity(baseEntity);
         renderCommandToCanvas();
@@ -18,9 +19,9 @@ public abstract class AbstractCommandProcessor implements BaseCommandProcessor, 
 
     protected void renderCommandToCanvas() {
         StringBuilder builder = new StringBuilder();
-        CanvasEntity canvasEntity=canvas.getCanvasEntity();
+        CanvasEntity canvasEntity = canvas.getCanvasEntity();
         String topBottomLine = "";
-        for (int i = 0; i < canvasEntity.getHeight()+ 2; i++) {
+        for (int i = 0; i < canvasEntity.getHeight() + 2; i++) {
             topBottomLine += "-";
         }
         builder.append(topBottomLine).append("\n");
@@ -37,7 +38,7 @@ public abstract class AbstractCommandProcessor implements BaseCommandProcessor, 
     }
 
     @Autowired
-    public void setCanvasEntity(Canvas canvas) {
+    public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
     }
 }

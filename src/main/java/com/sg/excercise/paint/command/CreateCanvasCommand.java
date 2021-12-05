@@ -1,7 +1,7 @@
 package com.sg.excercise.paint.command;
 
 import com.sg.excercise.paint.command.processor.CreateCanvasCommandProcessor;
-import com.sg.excercise.paint.model.BaseEntity;
+import com.sg.excercise.paint.exception.InvalidCommandException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class CreateCanvasCommand implements BaseCommand {
     }
 
     @Override
-    public void execute(String command) {
+    public void execute(String command) throws InvalidCommandException {
         createCanvasCommandProcessor.processCommand(command);
     }
 

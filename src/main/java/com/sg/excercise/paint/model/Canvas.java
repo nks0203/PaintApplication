@@ -1,7 +1,5 @@
 package com.sg.excercise.paint.model;
 
-import com.sg.excercise.paint.model.CanvasEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component

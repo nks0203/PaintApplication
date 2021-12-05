@@ -1,9 +1,10 @@
 package com.sg.excercise.paint.exception;
 
-public class InvalidCommandException extends RuntimeException {
-    String message = "Entered command is invalid. Please review the parameters passed and enter again";
+public class InvalidCommandException extends Exception {
+    private static String message = "Entered command is invalid. Please review the parameters passed and try again";
 
     public InvalidCommandException() {
+        super(message);
     }
 
     public InvalidCommandException(String message) {

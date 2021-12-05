@@ -1,6 +1,7 @@
 package com.sg.excercise.paint.command;
 
 import com.sg.excercise.paint.command.processor.LineCommandProcessor;
+import com.sg.excercise.paint.exception.InvalidCommandException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ public class CreateLineCommand implements BaseCommand {
     }
 
     @Override
-    public void execute(String command) {
+    public void execute(String command) throws InvalidCommandException {
         lineCommandProcessor.processCommand(command);
     }
 

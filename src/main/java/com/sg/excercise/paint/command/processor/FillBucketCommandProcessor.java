@@ -1,21 +1,29 @@
 package com.sg.excercise.paint.command.processor;
 
+import com.sg.excercise.paint.config.AppProperties;
 import com.sg.excercise.paint.exception.InvalidCommandException;
 import com.sg.excercise.paint.model.BaseEntity;
 import com.sg.excercise.paint.model.CanvasEntity;
 import com.sg.excercise.paint.model.FillBucketEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class FillBucketCommandProcessor extends AbstractCommandProcessor {
 
+    private AppProperties appProperties;
+
+    @Autowired
+    public FillBucketCommandProcessor(AppProperties appProperties) {
+        this.appProperties = appProperties;
+    }
 
     @Override
-    public void processEntity(BaseEntity baseEntity) {
+    public void processEntity(BaseEntity baseEntity) throws InvalidCommandException {
         FillBucketEntity fillBucketEntity = (FillBucketEntity) baseEntity;
         CanvasEntity canvasEntity = canvas.getCanvasEntity();
         if (canvasEntity == null) {
-            throw new InvalidCommandException("Invalid command. Please create a canvas first. Run -> C <length> <height>");
+            throw new InvalidCommandException(appProperties.getMessages().getException().getInvalidCommandNoCanvas());
         }
         int x1 = fillBucketEntity.getX1();
         int y1 = fillBucketEntity.getY1();
@@ -27,7 +35,7 @@ public class FillBucketCommandProcessor extends AbstractCommandProcessor {
     private void recursiveFillBucketWithChar(int x1, int y1, char originalChar, char fillByChar, CanvasEntity canvasEntity) {
         char[][] canvasDataArray = canvasEntity.getCanvasDataArray();
 
-        if ((x1 >= 0 &&x1 < canvasEntity.getWidth()) && (y1 >= 0 && y1 < canvasEntity.getHeight())) {
+        if ((x1 >= 0 && x1 < canvasEntity.getWidth()) && (y1 >= 0 && y1 < canvasEntity.getHeight())) {
             if (canvasDataArray[x1][y1] == originalChar) {
 
                 canvasEntity.getCanvasDataArray()[x1][y1] = fillByChar;

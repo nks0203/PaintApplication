@@ -1,5 +1,6 @@
 package com.sg.excercise.paint.model;
 
+import com.sg.excercise.paint.exception.InvalidCommandException;
 import com.sg.excercise.paint.util.PaintUtils;
 
 public class LineEntity implements BaseEntity {
@@ -8,7 +9,7 @@ public class LineEntity implements BaseEntity {
     private int x2;
     private int y2;
 
-    public LineEntity(int x1, int y1, int x2, int y2) {
+    public LineEntity(int x1, int y1, int x2, int y2) throws InvalidCommandException {
 
         PaintUtils.areAllPointsPositive(x1, x2, y1, y2);
         if (x1 == x2 || y1 == y2) {
@@ -24,7 +25,7 @@ public class LineEntity implements BaseEntity {
                 this.y2 = y1;
             }
         } else {
-            throw new IllegalArgumentException("Creation of diagonal line not allowed. Please enter points having equal x or y coordinates. ");
+            throw new InvalidCommandException("Creation of diagonal line not allowed. Please enter points having equal x or y coordinates. ");
         }
     }
 

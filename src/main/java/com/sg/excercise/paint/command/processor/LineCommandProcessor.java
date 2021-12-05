@@ -1,16 +1,26 @@
 package com.sg.excercise.paint.command.processor;
 
+import com.sg.excercise.paint.config.AppProperties;
 import com.sg.excercise.paint.exception.InvalidCommandException;
 import com.sg.excercise.paint.model.BaseEntity;
 import com.sg.excercise.paint.model.CanvasEntity;
 import com.sg.excercise.paint.model.LineEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LineCommandProcessor extends AbstractCommandProcessor {
 
+
+    private AppProperties appProperties;
+
+    @Autowired
+    public LineCommandProcessor(AppProperties appProperties) {
+        this.appProperties = appProperties;
+    }
+
     @Override
-    public void processEntity(BaseEntity baseEntity) {
+    public void processEntity(BaseEntity baseEntity) throws InvalidCommandException {
         LineEntity lineEntity = (LineEntity) baseEntity;
         int x1 = lineEntity.getX1();
         int y1 = lineEntity.getY1();
@@ -18,11 +28,11 @@ public class LineCommandProcessor extends AbstractCommandProcessor {
         int y2 = lineEntity.getY2();
         CanvasEntity canvasEntity = canvas.getCanvasEntity();
         if (canvasEntity == null) {
-            throw new InvalidCommandException("Invalid command. Please create a canvas first. Run -> C <length> <height>");
+            throw new InvalidCommandException(appProperties.getMessages().getException().getInvalidCommandNoCanvas());
         }
         for (int row = y1 - 1; row <= y2 - 1 && row < canvasEntity.getWidth(); row++) {
             for (int col = x1 - 1; col <= x2 - 1 && col < canvasEntity.getHeight(); col++) {
-                canvas.getCanvasEntity().getCanvasDataArray()[row][col] = 'x';
+                canvas.getCanvasEntity().getCanvasDataArray()[row][col] = appProperties.getCanvas().getLineChar();
             }
         }
     }
