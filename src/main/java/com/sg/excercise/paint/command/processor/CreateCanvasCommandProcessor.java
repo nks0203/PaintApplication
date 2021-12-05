@@ -23,7 +23,7 @@ public class CreateCanvasCommandProcessor extends AbstractCommandProcessor {
     public void processEntity(BaseEntity baseEntity) {
         CanvasEntity canvasEntity = (CanvasEntity) baseEntity;
 
-        char[][] canvasDataArray = new char[canvasEntity.getWidth()][canvasEntity.getHeight()];
+        char[][] canvasDataArray = new char[canvasEntity.getHeight()][canvasEntity.getWidth()];
         Arrays.stream(canvasDataArray).forEach(chars -> Arrays.fill(chars, appProperties.getCanvas().getDefaultFillChar()));
         canvasEntity.setCanvasDataArray(canvasDataArray);
         canvas.setCanvasEntity(canvasEntity);
@@ -33,10 +33,10 @@ public class CreateCanvasCommandProcessor extends AbstractCommandProcessor {
     public BaseEntity validateAndParse(String command) throws InvalidCommandException {
         String[] commandSplit = command.split(" ");
         if (commandSplit.length == 3) {
-            int height = Integer.parseInt(commandSplit[1]);
-            int width = Integer.parseInt(commandSplit[2]);
+            int width = Integer.parseInt(commandSplit[1]);
+            int height = Integer.parseInt(commandSplit[2]);
             if (width > 0 && height > 0) {
-                return new CanvasEntity(height, width);
+                return new CanvasEntity(width, height);
             }
         }
         throw new InvalidCommandException();

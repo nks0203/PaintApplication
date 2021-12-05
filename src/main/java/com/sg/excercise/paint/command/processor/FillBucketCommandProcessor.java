@@ -8,6 +8,8 @@ import com.sg.excercise.paint.model.FillBucketEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.MessageFormat;
+
 @Component
 public class FillBucketCommandProcessor extends AbstractCommandProcessor {
 
@@ -27,6 +29,9 @@ public class FillBucketCommandProcessor extends AbstractCommandProcessor {
         }
         int x1 = fillBucketEntity.getX1();
         int y1 = fillBucketEntity.getY1();
+        if (isPointOutsideCanvas(x1, y1, canvasEntity.getWidth(), canvasEntity.getHeight())) {
+            throw new InvalidCommandException(MessageFormat.format(appProperties.getMessages().getException().getInvalidCommandPointOutsideCanvas(),canvasEntity.getWidth(),canvasEntity.getHeight()));
+        }
         char originalChar = canvasEntity.getCanvasDataArray()[y1 - 1][x1 - 1];
         recursiveFillBucketWithChar(x1 - 1, y1 - 1, originalChar, fillBucketEntity.getFillByChar(), canvasEntity);
 
@@ -36,9 +41,9 @@ public class FillBucketCommandProcessor extends AbstractCommandProcessor {
         char[][] canvasDataArray = canvasEntity.getCanvasDataArray();
 
         if ((x1 >= 0 && x1 < canvasEntity.getWidth()) && (y1 >= 0 && y1 < canvasEntity.getHeight())) {
-            if (canvasDataArray[x1][y1] == originalChar) {
+            if (canvasDataArray[y1][x1] == originalChar) {
 
-                canvasEntity.getCanvasDataArray()[x1][y1] = fillByChar;
+                canvasEntity.getCanvasDataArray()[y1][x1] = fillByChar;
                 recursiveFillBucketWithChar(x1 + 1, y1, originalChar, fillByChar, canvasEntity);
                 recursiveFillBucketWithChar(x1 - 1, y1, originalChar, fillByChar, canvasEntity);
                 recursiveFillBucketWithChar(x1, y1 + 1, originalChar, fillByChar, canvasEntity);

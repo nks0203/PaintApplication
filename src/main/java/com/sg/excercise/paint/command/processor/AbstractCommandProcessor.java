@@ -21,13 +21,13 @@ public abstract class AbstractCommandProcessor implements BaseCommandProcessor, 
         StringBuilder builder = new StringBuilder();
         CanvasEntity canvasEntity = canvas.getCanvasEntity();
         String topBottomLine = "";
-        for (int i = 0; i < canvasEntity.getHeight() + 2; i++) {
+        for (int i = 0; i < canvasEntity.getWidth() + 2; i++) {
             topBottomLine += "-";
         }
         builder.append(topBottomLine).append("\n");
-        for (int i = 0; i < canvasEntity.getWidth(); i++) {
+        for (int i = 0; i < canvasEntity.getHeight(); i++) {
             builder.append("|");
-            for (int j = 0; j < canvasEntity.getHeight(); j++) {
+            for (int j = 0; j < canvasEntity.getWidth(); j++) {
                 builder.append(canvasEntity.getCanvasDataArray()[i][j]);
             }
             builder.append("|");

@@ -50,7 +50,16 @@ public class AppProperties {
         private String invalidCommandNoCanvas;
         private String invalidCommandWrongArgs;
         private String invalidCommandDiagonalLine;
+        private String invalidCommandPointOutsideCanvas;
         private String commandNotSupported;
+
+        public String getInvalidCommandPointOutsideCanvas() {
+            return invalidCommandPointOutsideCanvas;
+        }
+
+        public void setInvalidCommandPointOutsideCanvas(String invalidCommandPointOutsideCanvas) {
+            this.invalidCommandPointOutsideCanvas = invalidCommandPointOutsideCanvas;
+        }
 
         public String getCommandNotSupported() {
             return commandNotSupported;

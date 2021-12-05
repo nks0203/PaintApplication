@@ -3,11 +3,12 @@ app:
     boundry-horizontal-char: '-'
     boundry-vertical-char: '|'
     default-fill-char: ' '
-    rectangle-char: 'x'
-    line-char: 'X'
+    rectangle-char: 'r'
+    line-char: 'l'
   messages:
     exception:
-      invalid-command-no-canvas: This is an invalid command. Please create a canvas first. Run -> C <length> <height>. Try again.""This is an invalid command. Please create a canvas first. Run -> C <length> <height>. Try again.
+      invalid-command-no-canvas: Please create a canvas first. Run -> C <length> <height>. Try again.
       invalid-command-wrong-args: Entered command is invalid. Please review the parameters passed and try again
       invalid-Command-diagonal-line: Creation of diagonal line not allowed. Please enter points having equal x or y coordinates.
+      invalid-command-point-outside-canvas: Entered point/s is/are outside canvas. Please enter not greater than x={0} & y={1}.
       command-not-supported: This command is not supported at the moment.

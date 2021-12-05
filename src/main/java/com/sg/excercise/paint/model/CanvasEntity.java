@@ -7,11 +7,9 @@ public class CanvasEntity implements BaseEntity {
     private int width;
     private int height;
 
-    public CanvasEntity(int height, int width) {
+    public CanvasEntity(int width, int height) {
         this.width = width;
         this.height = height;
-        canvasDataArray = new char[this.height][this.height];
-        Arrays.stream(canvasDataArray).forEach(chars -> Arrays.fill(chars, ' '));
     }
 
     public char[][] getCanvasDataArray() {
