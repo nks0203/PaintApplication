@@ -17,7 +17,7 @@ This program takes the following assumptions:
 - point should be greater than 0
 - only one fill character allowed for bucket fill
 
-#How to use?
+# How to use?
 Supported Commands :
 - C <width> <height> ; 0<width<=1000 , 0<height<=1000. **You would need to create a canvas first before running any other command.**
 - L x1 y1 x2 y2 : Create a new line from (x1,y1) to (x2,y2). Currently only horizontal or vertical lines are supported. Horizontal and vertical lines will be drawn using the 'x' character.
@@ -25,7 +25,7 @@ Supported Commands :
 - B x y c : Fills the entire area connected to (x,y) with \"colour\" c. The behaviour of this is the same as that of the \"bucket fill\" tool in paint programs.
 - Q :Quits the program. 
 
-#How to run the program?
+# How to run the program?
 - Method 1 \
   You can open your favorite IDE which supports java programs > Open PaintApplication.java > click run/debug
   
