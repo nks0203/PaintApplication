@@ -14,10 +14,10 @@ public abstract class AbstractCommandProcessor implements BaseCommandProcessor, 
     public void processCommand(String command) throws InvalidCommandException {
         BaseEntity baseEntity = validateAndParse(command);
         processEntity(baseEntity);
-        renderCommandToCanvas();
+        drawOnConsole();
     }
 
-    protected void renderCommandToCanvas() {
+    protected void drawOnConsole() {
         StringBuilder builder = new StringBuilder();
         CanvasEntity canvasEntity = canvas.getCanvasEntity();
         String topBottomLine = "";

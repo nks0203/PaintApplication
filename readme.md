@@ -31,3 +31,7 @@ Supported Commands :
   
 - Method 2 \
   Run the following command : java -jar Paint-1.0.0-SNAPSHOT.jar
+  
+# Want to add new features?
+Create two classes : **NEW-FEATURE**Command extends BaseCommand & **NEW-FEATURE-COMMAND**Processor extends AbstractCommandProcessor. Provide implemention for validating your command and processing for your entity.
+Final rendering is taken care by AbstractCommand processor.
